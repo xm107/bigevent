@@ -23,11 +23,99 @@
             <form class="login_form">
                 <i class="iconfont icon-user"></i>
                 <i class="iconfont icon-key"></i>
-                <input type="text" class="input_txt" placeholder="邮箱/手机号">
-                <input type="password" class="input_pass" placeholder="密码">
-                <input type="submit" class="input_sub" value="登 录">
+                <input type="text" id="username" class="input_txt" placeholder="邮箱/手机号">
+                <input type="password" id="password" class="input_pass" placeholder="密码">
+                <!-- submit按钮在表单中会自动提交 -->
+                <!-- 把submit改成button,则它就不会再提交表单了 -->
+                <input id="btnLogin" type="button" class="input_sub" value="登 录">
             </form>
         </div>
-    </div> 
+    </div>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <!-- 引入config.js -->
+    <script src="./js/util/config.js"></script>
+    <!-- 引入user.js -->
+    <script src="./js/util/user.js"></script>
+
+    <script>
+        // 流程：
+        // 1. 登录按钮绑定点击事件。注意，这里不要让表单跳转页面了
+        // 2. 判断用户名和密码是否为空
+        //    1. 空：提示用户
+        //    2. 非空：调用接口
+        //       1. 响应回来之后根据提示
+        //          1. 登录成功：去后台首页
+        //          2. 登录失败：提示用户
+
+        // 111.用户登录------>优化结构：
+        $("#btnLogin").click(function () {
+            // 获取用户名和密码
+            var name = $("#username").val().trim();
+            var password = $("#password").val().trim();
+            // 判断是否为空
+            if (name === " " || password === "") {
+                alert("用户名不能为空！请重新输入!");
+                return;
+            }
+            // 用户登录
+            user.login(name, password).then(function (res) {
+                console.log(res);
+                if (res.code == 200) {
+                    // 跳出主页
+                    window.location.href = "./index.html"
+                } else {
+                    // 失败，直接打出错别信息；
+                    alert(res.msg);
+                }
+
+            });
+        });
+        /*  $("#btnLogin").click(function () {
+             // 获取用户名和密码
+             var name = $("#username").val().trim();
+             var password = $("#password").val().trim();
+             // console.log(name, password);
+             // 判断是否为空
+             if (name === " " || password === "") {
+                 alert("用户名不能为空！请重新输入!");
+                 return;
+             } */
+
+
+        /*  // 11.用户登录------>语义化
+         var user = {
+             login: function () {
+                 $.post(" http://localhost:8000/admin/login", {
+                     user_name: name,
+                     password: password
+                 },
+                     function (res) {
+                         console.log(res);
+                         if (res.code == 200) {
+                             alert("登录成功！")
+                             window.location.href = "./index.html"
+                         } else {
+                             alert(res.mag);
+                         }
+                     })
+             } */
+
+        /*         1.   用户登录------>基本代码
+         // 发请求，根据返回结果，提示用户
+                    // $.post(地址，参数，回调)
+                    $.post(" http://localhost:8000/admin/login", {
+                        user_name: name,
+                        password: password
+                    }, function (res) {
+                        console.log(res);
+                        if (res.code == 200) {
+                            alert("登录成功！")
+                            window.location.href = "./index.html"
+                        } else {
+                            alert(res.mag);
+                        }
+                    }) */
+    </script>
 </body>
+
 </html>
