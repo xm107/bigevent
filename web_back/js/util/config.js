@@ -3,6 +3,7 @@
 
 // 所有接口的基地址
 var BASEURL = "http://192.168.56.1:8000"
+// var BASEURL = "http://39.99.130.177:8000"
 var APILIST = {
     user_login: BASEURL + "/admin/login",
     user_logout: BASEURL + "/admin/logout",
@@ -15,6 +16,11 @@ var APILIST = {
     // 类别删除：
     category_del: BASEURL + "/admin/category_delete",
     // 类别编辑：
-    category_edit:BASEURL +"/admin/category_edit",
+    category_edit: BASEURL + "/admin/category_edit",
+
+    // 文章获取
+    article_show: BASEURL + "/admin/search",
+    // 文章删除
+    article_del: BASEURL + "/admin/delete",
 
 }
