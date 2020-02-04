@@ -16,7 +16,17 @@ var article = {
         return $.get(APILIST.article_del, {
             "id": id,
         });
-    }
+    },
+    // 添加
+    add: function (fd) {
+        return $.ajax({
+            url: APILIST.article_add,
+            type: "post",
+            data: fd,
+            processData: false,
+            contentType: false,
+        });
+    },
 
 
 
