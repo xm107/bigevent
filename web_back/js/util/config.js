@@ -2,7 +2,7 @@
 // 把项目接口中所有用到的接口地址全放到这里
 
 // 所有接口的基地址
-var BASEURL = "http://192.168.56.1:8000"
+var BASEURL = "http://192.168.1.6:8000"
 // var BASEURL = "http://39.99.130.177:8000"
 var APILIST = {
     user_login: BASEURL + "/admin/login",

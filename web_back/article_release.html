@@ -34,8 +34,10 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
-                        <input name="cover" type="file" id="exampleInputFile">
+                        <input name="cover" type="file" id="cover">
                     </div>
+                    <img id="imgPreview" style="margin-left:20px;width: 200px;" src="../web_back/images/login_bg.jpg"
+                        alt="">
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
@@ -112,6 +114,13 @@
 
             article.add(fd).then(function (res) {
                 console.log(res);
+                if (res.code === 201) {
+                    alert("发布成功！");
+                    // reset是表单（dom对象）的方法----》用来重置
+                    $("#myform")[0].reset();
+                } else {
+                    alert(res.msg);
+                }
             });
         });
 
@@ -128,9 +137,27 @@
                 alert(res.msg);
             }
         });
+
+        //3.图片预览
+        $("#cover").change(function () {
+            // 用户在input进行了操作
+            // this当前的dom操作
+            // console.log(this.files);//当前用户所选择的文件都放在这个集合中
+            // console.log(this.files[0]);//当前用户选中的第一个文件
+
+            // 获取当前用户所选择的那个文件
+            var curFile = this.files[0];
+            if (curFile) {
+                // 是浏览器提供的一个方法，用于创建对象的临时链接地址；
+                var curFileUrl = URL.createObjectURL(curFile);
+                // 2.把这个地址设置成imgPreview的src
+                $("#imgPreview").attr("src", curFileUrl);
+            } else {
+                $('#imgPreview').attr('src', '../web_back/images/login_bg.jpg');
+            }
+        });
+
     </script>
-
-
 
 </body>
 
