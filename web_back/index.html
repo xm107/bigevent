@@ -17,7 +17,7 @@
     <div class="sider">
         <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
         <div class="user_info">
-            <img src="images/2.jpg" alt="person">
+            <img src="images/2.jpg" id="userImg" alt="person">
             <span>欢迎&nbsp;&nbsp;<i id="userName">李思思</i></span>
             <b>管理员</b>
         </div>
@@ -121,11 +121,11 @@
             // 用户退出
             user.logout().then(function (res) {
                 console.log(res);
-                if (res.code == 200) {
+                if (res.code === 200) {
                     alert("成功退出！");
                     window.location.href = "./login.html";
                 } else {
-                    alert("res.msg");
+                    alert(res.msg);
                 }
             })
         });
@@ -133,10 +133,12 @@
         // 获取管理员信息并显示-------->思路：
         user.getInfo().then(function (res) {
             console.log(res);
-            if (res.code == 200) {
+            if (res.code === 200) {
                 // 显示内容
                 $("#userName").text(res.data.nickname);
-                $(".userImg").attr("src", res.data.uaer_pic)
+                $("#userImg").attr("src", res.data.user_pic)
+            } else {
+                alert(res.msg);
             }
         })
 

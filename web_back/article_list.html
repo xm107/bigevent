@@ -75,7 +75,7 @@
 
     <!-- 1.下拉列表的html: 用template对data进行遍历 -->
     <script id="tmp_category" type="text/html">
-    <option>所有类别</option>
+    <option value="">所有类别</option>
     {{each data item}}
     <option value="{{item.id}}">{{item.name}}</option>
     {{/each}}
@@ -91,7 +91,7 @@
             <td class="text-center">{{item.date}}</td>
             <td class="text-center">{{item.state}}</td>
             <td class="text-center">
-                <a href="article_edit.html?id={{item.id}}" class="btn btn-default btn-xs">编辑</a>
+                <a href="./article_edit.html?id={{item.id}}" class="btn btn-default btn-xs">编辑</a>
                 <a href="javascript:;" data-id="{{item.id}}" class="btn btn-danger btn-xs">删除</a>
             </td>
         </tr>
@@ -156,6 +156,8 @@
         }
         //（2）
         getAndshow();
+
+
         // 3.文章筛选
         // （1）获取用户当前的选择
         //（2）调用接口，传入用户的选项
@@ -164,7 +166,7 @@
             curPage = 1;
             // 把用户的选择保存到全局变量中
             curType = $("#selCategory").val();//文章类型编写
-            curStatus = $("#selstatus").val();//
+            curStatus = $("#selStatus").val();//
             //再去做出查询并显示
             getAndshow();
         });

@@ -24,6 +24,12 @@ var APILIST = {
     article_del: BASEURL + "/admin/article_delete",
     // 文章添加
     article_add: BASEURL + "/admin/article_publish",
+    // 保存文章编辑
+    article_edit: BASEURL + "/admin/article_edit",
 
+    // 添加评论
+    comment_add: BASEURL + "/post_comment",
+    // 获取评论
+    comment_get: BASEURL + "/post_comments",
 
 }

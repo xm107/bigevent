@@ -27,7 +27,22 @@ var article = {
             contentType: false,
         });
     },
-
-
+    // 编辑
+    /* 根据id去获取文章的详情 */
+    getById: function (id) {
+        return $.get(APILIST.article_show, {
+            "id": id,
+        });
+    },
+    // 保存文章编辑的对象
+    edit: function (fd) {
+        return $.ajax({
+            url: APILIST.article_edit,
+            type: "post",
+            data: fd,
+            processData: false,
+            contentType: false,
+        });
+    },
 
 }

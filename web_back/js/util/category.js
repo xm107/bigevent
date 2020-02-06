@@ -7,11 +7,11 @@ var category = {
         return $.get(APILIST.category_show);
     },
     // 增加
-    add: function (name, slug, ) {
+    add: function (name, slug) {
         return $.post(APILIST.category_add, {
             "name": name,
             "slug": slug,
-        })
+        });
     },
     // 删除
     del: function (id) {

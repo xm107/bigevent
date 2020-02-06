@@ -15,7 +15,7 @@ var user = {
         return $.post(APILIST.user_logout);
     },
     // 获取信息：
-    getInfo: function (callback) {
+    getInfo: function () {
         return $.get(APILIST.user_getInfo);
     },
 
