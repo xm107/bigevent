@@ -37,12 +37,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="type" aria-multiline="type">
-                            <option>类别一</option>
-                            <option>类别二</option>
-                            <option>类别三</option>
-                            <option selected>类别四</option>
-                            <option>类别五</option>
+                        <select class="form-control" id="type" name="type">
                         </select>
                     </div>
                 </div>
@@ -70,7 +65,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <!-- submit会发生表单提交和页面跳转 -->
-                        <button type="button" id="saveBtn" class="btn btn-success">保存</button>
+                        <button type="button" id="saveBtn" class="btn btn-success">修改</button>
                     </div>
                 </div>
             </form>
@@ -82,9 +77,9 @@
     <script src="js/tinymce/js/tinymce/tinymce.min.js"></script>
     <script src="js/tinymce/js/tinymce_setup.js"></script>
 
-    <script src="./js/util/category.js"></script>
-    <script src="./js/util/article.js"></script>
     <script src="./js/util/config.js"></script>
+    <script src="./js/util/article.js"></script>
+    <script src="./js/util/category.js"></script>
 
     <!-- 文章分类信息的模板 -->
     <script id="cate" type="text/html">
@@ -98,11 +93,33 @@
         // 1.从地址栏中获取当前要编辑的文章的编号
         // // http://127.0.0.1:5500/web_back/article_edit.html?id=1574556041361  ====> 1574556041361
         // （1）window.location.search====>?id=1574556041361
+        console.log(window.location);
+        console.log(window.location.search);
         // (2)通过substr(起点下标，长度)。如果括号内不写第二个参数，substr就会截取从起点开始到最后的全部内容。
 
         //2.根据id去取回这篇文章的信息，并显示在页面上 
         var id = window.location.search.substr(4);//跳过 ？id= 这四个字符；
+
         getAndShowCategory();
+        // 3.实现保存编辑
+        $("#saveBtn").click(function () {
+            // 收集数据
+            var fd = new FormData(document.getElementById("form"));
+            // 要获取formdata中的数据，注意把name属性设置与接口中的参数一一对应；
+            //追加id
+            fd.append("id", id);
+            fd.set("content", tinymce.activeEditor.getContent());
+            article.edit(fd).then(function (res) {
+                console.log(res);
+                if (res.code === 200) {
+                    alert("修改成功");
+                } else {
+                    alert(res.msg);
+                }
+            });
+            // 调用接口
+            // 根据接口反馈做后续动作
+        });
 
         function getAndShow(id) {
             // 3.实现保存编辑
@@ -113,13 +130,14 @@
                     // 把结果显示在页面上---->把数据填入到表单中
                     $("#title").val(res.data.title);
                     $("#previewImg").attr("src", res.data.cover);
-                    $("#datainput").val(res.data.data);
+                    $("#dateinput").val(res.data.date);
+
                     $("#type").val(res.data.type);
 
                     // 给富文本编辑器，设置内容
                     setTimeout(function () {
                         /* tinymce.activeEditor.setContent能生效的前提是：富文本编辑器已经就绪了，如果ajax数据回来了，但是富文本编辑器还没有准备就绪，他就会报错，所以给它一点延迟 */
-                        tinymce.activeEditor.setContent(res.data.Content);
+                        tinymce.activeEditor.setContent(res.data.content);
                     }, 1000)
                 } else {
                     alert(res.msg);
@@ -141,24 +159,7 @@
             });
         }
 
-        // 3.实现保存编辑
-        $("#saveBtn").click(function () {
-            // 收集数据
-            var fd = new FormData(document.getElementById("form"));
-            // 要获取formdata中的数据，注意把name属性设置与接口中的参数一一对应；
-            //追加id
-            fd.append("id", id);
-            fd.set("content", tinymce.activeEditor.getContent());
-            article.edit(fd).then(function (res) {
-                if (res.code === 200) {
-                    alert(修改成功);
-                } else {
-                    alert(res.msg);
-                }
-            });
-            // 调用接口
-            // 根据接口反馈做后续动作
-        });
+
 
 
 

@@ -3,12 +3,12 @@ var article = {
     // 类型是curType, 
     // 状态是curStatus的数据
     // 显示：
-    show: function (curPage, curType, curStatus, ) {
+    show: function (page, type, status, ) {
         // 根据接口的定义，要请哪一页的数据，就传对应的值给page
         return $.get(APILIST.article_show, {
-            "page": curPage,
-            "type": curType,
-            "state": curStatus,
+            "page": page,
+            "type": type,
+            "state": status
         });
     },
     // 删除
@@ -31,7 +31,7 @@ var article = {
     /* 根据id去获取文章的详情 */
     getById: function (id) {
         return $.get(APILIST.article_show, {
-            "id": id,
+            "id": id
         });
     },
     // 保存文章编辑的对象
