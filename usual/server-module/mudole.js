@@ -9,7 +9,7 @@ const path = require("path");
 */
 const DATA_FILE = "message.json";//消除魔术数，便于理解
 // 拼接一个绝对路径
-let filePath = path.join(__filename, DATA_FILE);
+let filePath = path.join(__dirname, DATA_FILE);
 
 // 获取json文件内容，导出
 const get = () => {
